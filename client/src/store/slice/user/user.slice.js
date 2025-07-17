@@ -10,6 +10,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   screenLoading: false,
+  selectedUser: null,
   buttonLoading: false,
   userProfile: null,
   otherUsers: null,
@@ -18,7 +19,11 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedUser: (state, action) => {
+      state.selectedUser = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // LOGIN
     builder.addCase(loginUserThunk.pending, (state) => {
@@ -78,12 +83,12 @@ export const userSlice = createSlice({
     builder.addCase(getOtherUsersThunk.fulfilled, (state, action) => {
       console.log("Payload in slice:", action.payload);
       state.screenLoading = false;
-        state.otherUsers = action.payload?.responseData;
+      state.otherUsers = action.payload?.responseData;
     });
     builder.addCase(getOtherUsersThunk.rejected, (state, action) => {
       state.screenLoading = false;
     });
   },
 });
-
+export const{setSelectedUser}=userSlice.actions;
 export default userSlice.reducer;

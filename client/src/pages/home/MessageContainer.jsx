@@ -1,25 +1,29 @@
 import React from "react";
-import { IoSend } from "react-icons/io5";
+import { IoIosSend } from "react-icons/io";
 import Message from "./Message";
-
+import { useDispatch, useSelector } from "react-redux";
+import User from "./User";
 const MessageContainer = () => {
+   const dispatch = useDispatch();
+  const { selectedUser } = useSelector((state) => state.userReducer)
   return (
-    <div className="w-full h-[calc(100vh-4rem)] flex flex-col justify-between p-4 bg-base-100 shadow-sm">
-      {/* Message List */}
-      <div className="flex flex-col gap-2 overflow-y-auto">
-        <Message />
-        
+   <div className="h-screen w-full flex flex-col">
+          <div className="p-3 border-b border-b-white/10">
+            <User userDetails={selectedUser} />
+          </div>
+
+      <div className="h-full overflow-y-auto p-3">
+       <Message/>
       </div>
 
-      {/* Message Input */}
-      <div className="w-full p-3 flex gap-2 mt-2">
+      <div className="w-full p-3 flex gap-2">
         <input
           type="text"
           placeholder="Type here..."
-          className="input input-bordered input-primary w-full bg-base-200 text-sm"
+          className="input input-bordered input-primary w-full"
         />
         <button className="btn btn-square btn-outline btn-primary">
-          <IoSend />
+          <IoIosSend />
         </button>
       </div>
     </div>
